@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/michelbourbeau/dev-michel#readme",
   "devDependencies": {
+    "gulp-coffee": "^2.3.4",
     "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^7.0.0",
     "gulp-sass": "^3.1.0",
     "postcss": "^6.0.14",
@@ -26,7 +28,9 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.2.3",
+    "js-beautify": "^1.7.4",
     "merge2": "^1.2.0",
-    "stylelint": "^8.2.0"
+    "stylelint": "^8.2.0",
+    "stylelint-config-sass-guidelines": "^3.1.0"
   }
 }

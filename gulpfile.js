@@ -3,19 +3,29 @@ var postcss     = require('gulp-postcss');
 var reporter    = require('postcss-reporter');
 var syntax_scss = require('postcss-scss');
 var stylelint   = require('stylelint');
+var plumber = require('gulp-plumber');
+var coffee = require('gulp-coffee');
 
 gulp.task("scss-lint", function() {
 
   // Stylelint config rules
   var stylelintConfig = {
-	"extends": "stylelint-config-recommended"
+    "extends": "stylelint-config-recommended",
+    "rules": {
+      "block-no-empty": true,
+      "length-zero-no-unit": true,
+      "no-missing-end-of-source-newline": true,
+      "color-named": "never",
+      "indentation": "tab",
+      "number-leading-zero": null
   }
+}
 
   var processors = [
     stylelint(stylelintConfig),
     reporter({
       clearMessages: true,
-      throwError: true
+      throwError: false
     })
   ];
 
@@ -25,6 +35,10 @@ gulp.task("scss-lint", function() {
       // Useful if you have bower components
       '!app/assets/css/**/*.scss']
     )
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(plumber.stop())
+    .pipe(gulp.dest('./dist'))
     .pipe(postcss(processors, {syntax: syntax_scss}));
 });
 
@@ -43,6 +57,7 @@ gulp.task('scripts', function() {
   });
 
   gulp.task('watch', function () {
-	gulp.watch('app/css/sass/*.scss', ['sass']);
+  gulp.watch('app/css/sass/*.scss', ['sass']);
+  gulp.watch('app/css/sass/*.scss', ['scss-lint']);
 	gulp.watch('app/js/components/*.js', ['scripts']);
   });

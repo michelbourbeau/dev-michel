@@ -1,18 +1,28 @@
-$font-stack:    Helvetica, sans-serif;
+$font-stack: Arial;
 $primary-color: #333;
-$header-color: green;
+$header-color: #080;
+$black: #000;
+$red: #f00;
 
 body {
-  font: 100% $font-stack;
   color: $primary-color;
-  
-  	h1{
-	 font-family: $font-stack;
-	 color: $header-color;
-	  }
-	  
-	h2 {
-		color: #000;
-		font-size: 12px;
-	}
+  font-family: $font-stack;
+}
+
+h1 {
+  color: $header-color;
+
+  span {
+    color: $primary-color;
+  }
+
+  + p {
+    font-size: 12px;
+  }
+}
+
+h2 {
+  background: $red;
+  color: $black;
+  padding: 0;
 }
