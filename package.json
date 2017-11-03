@@ -2,7 +2,7 @@
   "name": "dev-michel",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "js/app/script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,18 @@
   "bugs": {
     "url": "https://github.com/michelbourbeau/dev-michel/issues"
   },
-  "homepage": "https://github.com/michelbourbeau/dev-michel#readme"
+  "homepage": "https://github.com/michelbourbeau/dev-michel#readme",
+  "devDependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp-postcss": "^7.0.0",
+    "gulp-sass": "^3.1.0",
+    "postcss": "^6.0.14",
+    "stylelint-config-recommended": "^1.0.0"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.2.3",
+    "merge2": "^1.2.0",
+    "stylelint": "^8.2.0"
+  }
 }
