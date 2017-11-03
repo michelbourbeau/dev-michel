@@ -31,9 +31,9 @@ gulp.task("scss-lint", function() {
 var concat = require('gulp-concat');
 // Concatenate JS Files
 gulp.task('scripts', function() {
-   return gulp.src('app/js/dev/*.js')
-	 .pipe(concat('script.js'))
-	 .pipe(gulp.dest('app/js'));
+   return gulp.src('app/js/components/*.js')
+	.pipe(concat('script.js'))
+	.pipe(gulp.dest('app/js'));
 });
 
   gulp.task('sass', function () {
@@ -44,5 +44,5 @@ gulp.task('scripts', function() {
 
   gulp.task('watch', function () {
 	gulp.watch('app/css/sass/*.scss', ['sass']);
-	gulp.watch('app/js/dev/*.js', ['scripts']);
+	gulp.watch('app/js/components/*.js', ['scripts']);
   });
