@@ -1,63 +1,33 @@
-var gulp        = require('gulp');
-var postcss     = require('gulp-postcss');
-var reporter    = require('postcss-reporter');
-var syntax_scss = require('postcss-scss');
-var stylelint   = require('stylelint');
-var plumber = require('gulp-plumber');
-var coffee = require('gulp-coffee');
-
-gulp.task("scss-lint", function() {
-
-  // Stylelint config rules
-  var stylelintConfig = {
-    "extends": "stylelint-config-recommended",
-    "rules": {
-      "block-no-empty": true,
-      "length-zero-no-unit": true,
-      "no-missing-end-of-source-newline": true,
-      "color-named": "never",
-      "indentation": "tab",
-      "number-leading-zero": null
-  }
-}
-
-  var processors = [
-    stylelint(stylelintConfig),
-    reporter({
-      clearMessages: true,
-      throwError: false
-    })
-  ];
-
-  return gulp.src(
-      ['app/css/**/*.scss',
-      // Ignore linting vendor assets
-      // Useful if you have bower components
-      '!app/assets/css/**/*.scss']
-    )
-    .pipe(plumber())
-    .pipe(uglify())
-    .pipe(plumber.stop())
-    .pipe(gulp.dest('./dist'))
-    .pipe(postcss(processors, {syntax: syntax_scss}));
+// including plugins
+var gulp = require('gulp'), 
+    sass = require("gulp-sass"),
+    jshint = require("gulp-jshint"),
+    minifyCss = require("gulp-minify-css"),
+    uglify = require("gulp-uglify");
+ 
+// Comile SASS
+gulp.task('compile-sass', function () {
+    gulp.src('./app/css/sass/style.scss') // path to your file
+    .pipe(sass())
+    .pipe(gulp.dest('app/css/'));
+});
+ 
+// Js Lint
+gulp.task('jsLint', function () {
+    gulp.src('./app/js/components/*.js') // path to your files
+    .pipe(jshint())
+    .pipe(jshint.reporter()); // Dump results
 });
 
-var concat = require('gulp-concat');
-// Concatenate JS Files
-gulp.task('scripts', function() {
-   return gulp.src('app/js/components/*.js')
-	.pipe(concat('script.js'))
-	.pipe(gulp.dest('app/js'));
+// Minify CSS
+gulp.task('minify-js', function () {
+  gulp.src('./app/js/*.js') // path to your files
+  .pipe(uglify())
+  .pipe(gulp.dest('app/js'));
 });
 
-  gulp.task('sass', function () {
-	gulp.src('app/css/sass/*.scss')
-	  .pipe(sass.sync().on('error', sass.logError))
-	  .pipe(gulp.dest('./app/css'));
-  });
-
-  gulp.task('watch', function () {
-  gulp.watch('app/css/sass/*.scss', ['sass']);
-  gulp.watch('app/css/sass/*.scss', ['scss-lint']);
-	gulp.watch('app/js/components/*.js', ['scripts']);
-  });
+gulp.task('minify-css', function () {
+  gulp.src('./app/css/style.css') // path to your file
+  .pipe(minifyCss())
+  .pipe(gulp.dest('app/css'));
+});
